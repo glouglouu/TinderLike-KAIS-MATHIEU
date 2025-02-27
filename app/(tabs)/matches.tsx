@@ -1,14 +1,13 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Stack } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function Matches() {
     return (
-        <>
-            <Stack.Screen options={{ title: 'Matches' }} />
-            <ThemedView>
-                <ThemedText type="title">Matches</ThemedText>
-            </ThemedView>
-        </>
+        
+            <View className="flex-1 items-center justify-center">
+                <Text className="text-red-500 text-2xl bg-white" >Matches</Text>
+            </View>
+        
     );
 }
