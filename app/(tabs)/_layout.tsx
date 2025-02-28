@@ -5,8 +5,13 @@ import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "react-native"; 
-import { Fontisto, AntDesign, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useColorScheme } from "react-native";
+import {
+  Fontisto,
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -20,7 +25,7 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            position: "absolute", 
+            position: "absolute",
           },
           default: {},
         }),
@@ -32,7 +37,9 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           title: "Accueil",
-          tabBarIcon: ({ color }) => <Fontisto name="tinder" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Fontisto name="tinder" size={24} color={color} />
+          ),
         }}
       />
 
@@ -42,7 +49,9 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           title: "Matchs",
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="cart-heart" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cart-heart" size={24} color={color} />
+          ),
         }}
       />
 
@@ -52,7 +61,9 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           title: "Messages",
-          tabBarIcon: ({ color }) => <AntDesign name="message1" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="message1" size={24} color={color} />
+          ),
         }}
       />
 
@@ -62,17 +73,21 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           title: "Profil",
-          tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="account-circle" size={24} color={color} />
+          ),
         }}
       />
-
-      {/* 📌 Redirection après Déconnexion */}
+      {/* 📌 Chat */}
       <Tabs.Screen
-        name="auth/logout"
+        name="chat"
         options={{
           headerShown: false,
-          title: "Déconnexion",
-          tabBarButton: () => null, // Cache ce bouton dans la barre de navigation
+          title: "Profil",
+
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="account-circle" size={24} color={color} />
+          ),
         }}
       />
     </Tabs>

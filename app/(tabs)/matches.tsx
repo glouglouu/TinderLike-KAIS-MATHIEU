@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import "nativewind";
+import { router } from "expo-router";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -19,7 +20,9 @@ const mockMatches = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   name: ["Alice", "Bob", "Charlie", "Diana", "Ethan", "Sophie"][i % 6],
   age: Math.floor(Math.random() * 10) + 20,
-  image: `https://randomuser.me/api/portraits/${i % 2 ? "women" : "men"}/${i + 1}.jpg`,
+  image: `https://randomuser.me/api/portraits/${i % 2 ? "women" : "men"}/${
+    i + 1
+  }.jpg`,
   online: Math.random() > 0.5,
   likedYou: Math.random() > 0.5, // ✅ Indique si la personne t'a liké
   youLiked: Math.random() > 0.5, // ✅ Indique si tu as liké cette personne
@@ -45,25 +48,33 @@ export default function MatchesScreen() {
       {/* HEADER */}
       <View className="flex-row justify-between items-center mb-4 mt-4">
         <Text className="text-white text-3xl font-bold">🎯 Tes Matchs</Text>
-        <Text className="text-gray-400 text-lg">❤️ {filteredMatches.length} matchs</Text>
+        <Text className="text-gray-400 text-lg">
+          ❤️ {filteredMatches.length} matchs
+        </Text>
       </View>
 
       {/* FILTRES */}
       <View className="flex-row justify-between bg-gray-800 p-2 rounded-xl mb-4">
         <TouchableOpacity
-          className={`flex-1 p-3 rounded-xl ${filter === "all" ? "bg-blue-500" : "bg-gray-700"}`}
+          className={`flex-1 p-3 rounded-xl ${
+            filter === "all" ? "bg-blue-500" : "bg-gray-700"
+          }`}
           onPress={() => setFilter("all")}
         >
           <Text className="text-center text-white">🏆 Tous</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`flex-1 p-3 mx-2 rounded-xl ${filter === "likedYou" ? "bg-blue-500" : "bg-gray-700"}`}
+          className={`flex-1 p-3 mx-2 rounded-xl ${
+            filter === "likedYou" ? "bg-blue-500" : "bg-gray-700"
+          }`}
           onPress={() => setFilter("likedYou")}
         >
           <Text className="text-center text-white">❤️ Ils t'ont liké</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`flex-1 p-3 rounded-xl ${filter === "youLiked" ? "bg-blue-500" : "bg-gray-700"}`}
+          className={`flex-1 p-3 rounded-xl ${
+            filter === "youLiked" ? "bg-blue-500" : "bg-gray-700"
+          }`}
           onPress={() => setFilter("youLiked")}
         >
           <Text className="text-center text-white">💌 Tes likes</Text>
@@ -89,21 +100,30 @@ export default function MatchesScreen() {
         )}
         keyExtractor={(item) => item.id.toString()}
         numColumns={screenWidth > 800 ? 3 : 1} // ✅ Grille sur PC, liste sur mobile
-        columnWrapperStyle={screenWidth > 800 ? { justifyContent: "space-between" } : null}
+        columnWrapperStyle={
+          screenWidth > 800 ? { justifyContent: "space-between" } : null
+        }
         contentContainerStyle={{
           paddingBottom: 50,
         }}
         renderItem={({ item }) => (
           <View className="bg-gray-800 p-6 rounded-3xl mb-5 shadow-lg shadow-gray-700 w-full md:w-[30%] mx-auto">
             {/* IMAGE */}
-            <Image source={{ uri: item.image }} className="w-full h-64 rounded-3xl" />
+            <Image
+              source={{ uri: item.image }}
+              className="w-full h-64 rounded-3xl"
+            />
 
             {/* INFOS */}
             <View className="mt-4">
               <Text className="text-white text-2xl font-bold">
                 {item.name}, {item.age}
               </Text>
-              <Text className={`${item.online ? "text-green-400" : "text-red-400"} text-lg`}>
+              <Text
+                className={`${
+                  item.online ? "text-green-400" : "text-red-400"
+                } text-lg`}
+              >
                 {item.online ? "🟢 En ligne" : "🔴 Hors ligne"}
               </Text>
             </View>
@@ -119,7 +139,7 @@ export default function MatchesScreen() {
 
               <TouchableOpacity
                 className="bg-blue-500 p-5 rounded-full"
-                onPress={() => alert(`Chat avec ${item.name}`)}
+                onPress={() => router.push(`/chat?user=${item.name}`)}
               >
                 <Ionicons name="chatbubbles" size={24} color="white" />
               </TouchableOpacity>

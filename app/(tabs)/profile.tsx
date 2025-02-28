@@ -9,11 +9,12 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types"; // Adjust the import path as necessary
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import "nativewind";
+import { router } from "expo-router";
 
+export default function Profile() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   // 📌 États pour la personnalisation du profil
@@ -45,18 +46,6 @@ import "nativewind";
   };
 
   // 📌 Fonction pour gérer la déconnexion (Redirection VÉRIFIÉE)
-  const handleLogout = () => {
-    console.log("Logout button pressed"); // Ajout du log
-    Alert.alert("Déconnexion", "Voulez-vous vraiment vous déconnecter ?", [
-      { text: "Annuler", style: "cancel" },
-      {
-        text: "Se déconnecter",
-        onPress: () => {
-          navigation.navigate("/choose"); // ✅ Redirection 100% fonctionnelle !
-        },
-      },
-    ]);
-  };
 
   return (
     <ScrollView className="flex-1 bg-gray-900 px-6 py-4">
@@ -91,7 +80,9 @@ import "nativewind";
           multiline
         />
 
-        <Text className="text-white text-lg font-semibold mt-4">Localisation</Text>
+        <Text className="text-white text-lg font-semibold mt-4">
+          Localisation
+        </Text>
         <TextInput
           className="bg-gray-800 text-white px-4 py-2 rounded-lg mt-2"
           value={location}
@@ -119,7 +110,9 @@ import "nativewind";
           placeholder="Homme, Femme, Non-binaire..."
         />
 
-        <Text className="text-white text-lg font-semibold mt-4">Centres d'intérêt</Text>
+        <Text className="text-white text-lg font-semibold mt-4">
+          Centres d'intérêt
+        </Text>
         <TextInput
           className="bg-gray-800 text-white px-4 py-2 rounded-lg mt-2"
           value={interests}
@@ -127,7 +120,9 @@ import "nativewind";
           placeholder="Voyages, sport, jeux vidéo..."
         />
 
-        <Text className="text-white text-lg font-semibold mt-4">Profession</Text>
+        <Text className="text-white text-lg font-semibold mt-4">
+          Profession
+        </Text>
         <TextInput
           className="bg-gray-800 text-white px-4 py-2 rounded-lg mt-2"
           value={profession}
@@ -135,7 +130,9 @@ import "nativewind";
           placeholder="Votre métier"
         />
 
-        <Text className="text-white text-lg font-semibold mt-4">Statut amoureux</Text>
+        <Text className="text-white text-lg font-semibold mt-4">
+          Statut amoureux
+        </Text>
         <TextInput
           className="bg-gray-800 text-white px-4 py-2 rounded-lg mt-2"
           value={relationshipStatus}
@@ -146,11 +143,13 @@ import "nativewind";
 
       {/* 📌 Bouton de Déconnexion (Redirection VÉRIFIÉE) */}
       <TouchableOpacity
-        onPress={handleLogout}
+        onPress={() => router.push("/(auth)/login")}
         className="bg-red-600 py-3 rounded-lg mt-6 flex-row items-center justify-center"
       >
         <MaterialIcons name="logout" size={24} color="white" />
-        <Text className="text-white text-lg font-semibold ml-2">Se Déconnecter</Text>
+        <Text className="text-white text-lg font-semibold ml-2">
+          Se Déconnecter
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );
