@@ -52,7 +52,7 @@ import "nativewind";
       {
         text: "Se déconnecter",
         onPress: () => {
-          navigation.navigate("choose"); // ✅ Redirection 100% fonctionnelle !
+          navigation.navigate("/choose"); // ✅ Redirection 100% fonctionnelle !
         },
       },
     ]);
